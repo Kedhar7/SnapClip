@@ -1,0 +1,43 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Background Colors -->
+    <SolidColorBrush x:Key="WindowBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="SurfaceBackground" Color="#F5F5F5"/>
+    <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+    <SolidColorBrush x:Key="HoverBackground" Color="#E8E8E8"/>
+    <SolidColorBrush x:Key="SelectedBackground" Color="#D0E4FF"/>
+    <SolidColorBrush x:Key="SearchBarBackground" Color="#F0F0F0"/>
+
+    <!-- Text Colors -->
+    <SolidColorBrush x:Key="PrimaryText" Color="#1A1A1A"/>
+    <SolidColorBrush x:Key="SecondaryText" Color="#666666"/>
+    <SolidColorBrush x:Key="PlaceholderText" Color="#999999"/>
+    <SolidColorBrush x:Key="AccentText" Color="#0078D4"/>
+
+    <!-- Border Colors -->
+    <SolidColorBrush x:Key="BorderBrush" Color="#E0E0E0"/>
+    <SolidColorBrush x:Key="FocusBorderBrush" Color="#0078D4"/>
+    <SolidColorBrush x:Key="SeparatorBrush" Color="#E8E8E8"/>
+
+    <!-- Accent Colors -->
+    <SolidColorBrush x:Key="AccentBrush" Color="#0078D4"/>
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="#106EBE"/>
+    <SolidColorBrush x:Key="DangerBrush" Color="#D13438"/>
+    <SolidColorBrush x:Key="WarningBrush" Color="#FFB900"/>
+    <SolidColorBrush x:Key="SuccessBrush" Color="#107C10"/>
+
+    <!-- Pin/Favorite Indicators -->
+    <SolidColorBrush x:Key="PinnedBrush" Color="#0078D4"/>
+    <SolidColorBrush x:Key="FavoriteBrush" Color="#FFB900"/>
+    <SolidColorBrush x:Key="EncryptedBrush" Color="#107C10"/>
+
+    <!-- Status Bar -->
+    <SolidColorBrush x:Key="StatusBarBackground" Color="#F0F0F0"/>
+    <SolidColorBrush x:Key="StatusBarText" Color="#666666"/>
+
+    <!-- Scrollbar -->
+    <SolidColorBrush x:Key="ScrollBarThumb" Color="#C0C0C0"/>
+    <SolidColorBrush x:Key="ScrollBarTrack" Color="#F0F0F0"/>
+
+</ResourceDictionary>

@@ -1,0 +1,47 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- Application -->
+    <system:String x:Key="AppName">SnapClip</system:String>
+    <system:String x:Key="AppDescription">Smart Clipboard Manager</system:String>
+
+    <!-- Search -->
+    <system:String x:Key="SearchPlaceholder">Search clips...</system:String>
+    <system:String x:Key="NoResults">No matching clips found</system:String>
+    <system:String x:Key="NoClipsYet">No clips captured yet. Copy something to get started!</system:String>
+
+    <!-- Sections -->
+    <system:String x:Key="PinnedSection">Pinned</system:String>
+    <system:String x:Key="RecentSection">Recent</system:String>
+
+    <!-- Context Menu -->
+    <system:String x:Key="MenuPin">Pin</system:String>
+    <system:String x:Key="MenuUnpin">Unpin</system:String>
+    <system:String x:Key="MenuFavorite">Favorite</system:String>
+    <system:String x:Key="MenuDelete">Delete</system:String>
+    <system:String x:Key="MenuCopy">Copy</system:String>
+    <system:String x:Key="MenuMarkSensitive">Mark as Sensitive</system:String>
+
+    <!-- Settings -->
+    <system:String x:Key="SettingsTitle">Settings</system:String>
+    <system:String x:Key="GeneralTab">General</system:String>
+    <system:String x:Key="AppearanceTab">Appearance</system:String>
+    <system:String x:Key="HotkeysTab">Hotkeys</system:String>
+    <system:String x:Key="PrivacyTab">Privacy</system:String>
+    <system:String x:Key="AboutTab">About</system:String>
+
+    <!-- Insights -->
+    <system:String x:Key="InsightsTitle">Usage Insights</system:String>
+    <system:String x:Key="TelemetryDisclaimer">All data is stored locally on your machine. Nothing is transmitted externally.</system:String>
+
+    <!-- System Tray -->
+    <system:String x:Key="TrayShow">Show SnapClip</system:String>
+    <system:String x:Key="TrayPause">Pause Monitoring</system:String>
+    <system:String x:Key="TrayResume">Resume Monitoring</system:String>
+    <system:String x:Key="TrayClear">Clear History</system:String>
+    <system:String x:Key="TraySettings">Settings</system:String>
+    <system:String x:Key="TrayInsights">Insights</system:String>
+    <system:String x:Key="TrayExit">Exit</system:String>
+
+</ResourceDictionary>

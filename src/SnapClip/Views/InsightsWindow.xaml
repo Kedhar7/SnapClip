@@ -1,0 +1,178 @@
+<Window x:Class="SnapClip.Views.InsightsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SnapClip.ViewModels"
+        xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+        mc:Ignorable="d"
+        Title="SnapClip — Usage Insights"
+        Width="600" Height="650"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource WindowBackground}"
+        AutomationProperties.Name="SnapClip Usage Insights"
+        Loaded="Window_Loaded"
+        d:DataContext="{d:DesignInstance Type=vm:InsightsViewModel}">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
+        <StackPanel Margin="20">
+
+            <!-- Title -->
+            <TextBlock Text="Usage Insights" FontSize="24" FontWeight="SemiBold"
+                       Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,4"/>
+            <TextBlock Text="All data is stored locally on your machine. Nothing is transmitted externally."
+                       Foreground="{DynamicResource SecondaryText}" FontSize="11" Margin="0,0,0,20"
+                       FontStyle="Italic"/>
+
+            <!-- Summary Cards -->
+            <UniformGrid Columns="4" Margin="0,0,0,20">
+                <!-- Clips Today -->
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8"
+                        BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                        Padding="16,12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="Today" Foreground="{DynamicResource SecondaryText}" FontSize="11"/>
+                        <TextBlock Text="{Binding ClipsToday}" FontSize="28" FontWeight="Bold"
+                                   Foreground="{DynamicResource AccentText}"
+                                   AutomationProperties.Name="{Binding ClipsToday, StringFormat='{}{0} clips captured today'}"/>
+                        <TextBlock Text="clips" Foreground="{DynamicResource SecondaryText}" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Clips This Week -->
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8"
+                        BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                        Padding="16,12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="This Week" Foreground="{DynamicResource SecondaryText}" FontSize="11"/>
+                        <TextBlock Text="{Binding ClipsThisWeek}" FontSize="28" FontWeight="Bold"
+                                   Foreground="{DynamicResource AccentText}"/>
+                        <TextBlock Text="clips" Foreground="{DynamicResource SecondaryText}" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- All Time -->
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8"
+                        BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                        Padding="16,12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="All Time" Foreground="{DynamicResource SecondaryText}" FontSize="11"/>
+                        <TextBlock Text="{Binding ClipsAllTime}" FontSize="28" FontWeight="Bold"
+                                   Foreground="{DynamicResource PrimaryText}"/>
+                        <TextBlock Text="clips" Foreground="{DynamicResource SecondaryText}" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Total Pastes -->
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8"
+                        BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                        Padding="16,12" Margin="4">
+                    <StackPanel>
+                        <TextBlock Text="Total" Foreground="{DynamicResource SecondaryText}" FontSize="11"/>
+                        <TextBlock Text="{Binding TotalPastes}" FontSize="28" FontWeight="Bold"
+                                   Foreground="{DynamicResource SuccessBrush}"/>
+                        <TextBlock Text="pastes" Foreground="{DynamicResource SecondaryText}" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- Most Used Clips -->
+            <TextBlock Text="Most Used Clips" FontSize="16" FontWeight="SemiBold"
+                       Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,8"/>
+            <Border Background="{DynamicResource CardBackground}" CornerRadius="8"
+                    BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                    Padding="12" Margin="0,0,0,20">
+                <ItemsControl ItemsSource="{Binding MostUsedClips}"
+                              AutomationProperties.Name="Most frequently pasted clips">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="4">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" TextTrimming="CharacterEllipsis"
+                                           Foreground="{DynamicResource PrimaryText}" FontSize="13">
+                                    <Run Text="{Binding Content, Mode=OneWay}"/>
+                                </TextBlock>
+                                <TextBlock Grid.Column="1" Foreground="{DynamicResource AccentText}"
+                                           FontWeight="SemiBold" Margin="12,0,0,0">
+                                    <Run Text="{Binding PasteCount, Mode=OneWay}"/><Run Text=" pastes"/>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+            <!-- Clips by Type -->
+            <TextBlock Text="Clips by Type" FontSize="16" FontWeight="SemiBold"
+                       Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,8"/>
+            <Border Background="{DynamicResource CardBackground}" CornerRadius="8"
+                    BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                    Padding="12" Margin="0,0,0,20">
+                <ItemsControl ItemsSource="{Binding ClipsByType}"
+                              AutomationProperties.Name="Clips categorized by type">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="4,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Key}"
+                                           Foreground="{DynamicResource PrimaryText}" FontWeight="SemiBold"/>
+                                <ProgressBar Grid.Column="1" Value="{Binding Value}" Maximum="100"
+                                             Height="12" Margin="8,0"
+                                             Foreground="{DynamicResource AccentBrush}"
+                                             Background="{DynamicResource SurfaceBackground}"/>
+                                <TextBlock Grid.Column="2" Text="{Binding Value}"
+                                           Foreground="{DynamicResource SecondaryText}" Width="40"
+                                           TextAlignment="Right"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+            <!-- Feature Flags Status -->
+            <TextBlock Text="Feature Flags" FontSize="16" FontWeight="SemiBold"
+                       Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,8"/>
+            <Border Background="{DynamicResource CardBackground}" CornerRadius="8"
+                    BorderBrush="{DynamicResource BorderBrush}" BorderThickness="1"
+                    Padding="12" Margin="0,0,0,20">
+                <ItemsControl ItemsSource="{Binding FeatureFlags}"
+                              AutomationProperties.Name="Feature flag status">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="4,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0" Text="{Binding Key}"
+                                           Foreground="{DynamicResource PrimaryText}"/>
+                                <TextBlock Grid.Column="1" FontWeight="SemiBold">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Text" Value="OFF"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource SecondaryText}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Value}" Value="True">
+                                                    <Setter Property="Text" Value="ON"/>
+                                                    <Setter Property="Foreground" Value="{DynamicResource SuccessBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+        </StackPanel>
+    </ScrollViewer>
+</Window>

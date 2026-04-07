@@ -1,0 +1,167 @@
+<Window x:Class="SnapClip.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:SnapClip.ViewModels"
+        xmlns:converters="clr-namespace:SnapClip.Converters"
+        mc:Ignorable="d"
+        Title="SnapClip Settings"
+        Width="500" Height="520"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource WindowBackground}"
+        AutomationProperties.Name="SnapClip Settings"
+        d:DataContext="{d:DesignInstance Type=vm:SettingsViewModel}">
+
+    <Window.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <TextBlock Grid.Row="0" Text="Settings" FontSize="24" FontWeight="SemiBold"
+                   Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,16"/>
+
+        <!-- Settings Tabs -->
+        <TabControl Grid.Row="1" Background="Transparent" BorderThickness="0">
+
+            <!-- General Tab -->
+            <TabItem Header="General" AutomationProperties.Name="General settings">
+                <StackPanel Margin="0,12,0,0">
+                    <CheckBox Content="Start with Windows" IsChecked="{Binding StartWithWindows}"
+                              Foreground="{DynamicResource PrimaryText}" Margin="0,8"
+                              AutomationProperties.Name="Start SnapClip when Windows starts"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,8">
+                        <TextBlock Text="Max clipboard history:" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource PrimaryText}" Margin="0,0,8,0"/>
+                        <TextBox Text="{Binding MaxHistorySize}" Width="80"
+                                 Background="{DynamicResource SearchBarBackground}"
+                                 Foreground="{DynamicResource PrimaryText}"
+                                 BorderBrush="{DynamicResource BorderBrush}"
+                                 AutomationProperties.Name="Maximum history size"/>
+                        <TextBlock Text="clips" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource SecondaryText}" Margin="8,0,0,0"/>
+                    </StackPanel>
+
+                    <Button Content="Clear History" Command="{Binding ClearHistoryCommand}"
+                            Margin="0,16,0,0" Padding="16,8" HorizontalAlignment="Left"
+                            Background="{DynamicResource DangerBrush}" Foreground="White"
+                            BorderThickness="0" Cursor="Hand"
+                            AutomationProperties.Name="Clear all clipboard history"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Appearance Tab -->
+            <TabItem Header="Appearance" AutomationProperties.Name="Appearance settings">
+                <StackPanel Margin="0,12,0,0">
+                    <TextBlock Text="Theme" Foreground="{DynamicResource PrimaryText}"
+                               FontWeight="SemiBold" Margin="0,0,0,8"/>
+
+                    <ComboBox SelectedItem="{Binding SelectedTheme}" Width="200"
+                              HorizontalAlignment="Left"
+                              AutomationProperties.Name="Select theme">
+                        <ComboBoxItem Content="Light"/>
+                        <ComboBoxItem Content="Dark"/>
+                        <ComboBoxItem Content="High Contrast"/>
+                        <ComboBoxItem Content="System Default"/>
+                    </ComboBox>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                        <TextBlock Text="Font size:" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource PrimaryText}" Margin="0,0,8,0"/>
+                        <Slider Value="{Binding FontSize}" Minimum="10" Maximum="20" Width="150"
+                                TickFrequency="1" IsSnapToTickEnabled="True"
+                                AutomationProperties.Name="Font size slider"/>
+                        <TextBlock Text="{Binding FontSize}" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource SecondaryText}" Margin="8,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Privacy Tab -->
+            <TabItem Header="Privacy" AutomationProperties.Name="Privacy settings">
+                <StackPanel Margin="0,12,0,0">
+                    <CheckBox Content="Auto-clear history on exit"
+                              IsChecked="{Binding AutoClearOnExit}"
+                              Foreground="{DynamicResource PrimaryText}" Margin="0,8"
+                              AutomationProperties.Name="Automatically clear clipboard history when the app exits"/>
+
+                    <TextBlock Text="Exclude apps from capture (one per line):"
+                               Foreground="{DynamicResource PrimaryText}" Margin="0,16,0,4"/>
+                    <TextBox Text="{Binding ExcludedApps}" AcceptsReturn="True"
+                             Height="80" TextWrapping="Wrap"
+                             Background="{DynamicResource SearchBarBackground}"
+                             Foreground="{DynamicResource PrimaryText}"
+                             BorderBrush="{DynamicResource BorderBrush}"
+                             AutomationProperties.Name="Excluded applications list"/>
+
+                    <TextBlock Text="Encryption passphrase:"
+                               Foreground="{DynamicResource PrimaryText}" Margin="0,16,0,4"/>
+                    <PasswordBox x:Name="PassphraseBox" Width="250" HorizontalAlignment="Left"
+                                 Background="{DynamicResource SearchBarBackground}"
+                                 BorderBrush="{DynamicResource BorderBrush}"
+                                 AutomationProperties.Name="Encryption passphrase for sensitive clips"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- Feature Flags Tab (developer mode only) -->
+            <TabItem Header="Feature Flags"
+                     Visibility="{Binding DeveloperMode, Converter={StaticResource BoolToVis}}"
+                     AutomationProperties.Name="Experimental feature flags">
+                <StackPanel Margin="0,12,0,0">
+                    <TextBlock Text="Experimental Features" FontWeight="SemiBold"
+                               Foreground="{DynamicResource PrimaryText}" Margin="0,0,0,8"/>
+                    <TextBlock Text="These features are experimental and may not work perfectly."
+                               Foreground="{DynamicResource SecondaryText}" Margin="0,0,0,12" FontSize="12"/>
+
+                    <CheckBox Content="Smart Categorization — Auto-tag clips as URL, email, code, etc."
+                              IsChecked="{Binding SmartCategorization}"
+                              Foreground="{DynamicResource PrimaryText}" Margin="0,6"/>
+                    <CheckBox Content="Image OCR — Extract text from image clips"
+                              IsChecked="{Binding ImageOcr}"
+                              Foreground="{DynamicResource PrimaryText}" Margin="0,6"/>
+                    <CheckBox Content="Sensitive Content Detection — Auto-detect credit cards, SSNs, API keys"
+                              IsChecked="{Binding SensitiveContentDetection}"
+                              Foreground="{DynamicResource PrimaryText}" Margin="0,6"/>
+                    <CheckBox Content="Clip Merge — Merge multiple clips into one"
+                              IsChecked="{Binding ClipMerge}"
+                              Foreground="{DynamicResource PrimaryText}" Margin="0,6"/>
+                    <CheckBox Content="Sound Effects — Play sound on clip capture"
+                              IsChecked="{Binding SoundEffects}"
+                              Foreground="{DynamicResource PrimaryText}" Margin="0,6"/>
+                </StackPanel>
+            </TabItem>
+
+            <!-- About Tab -->
+            <TabItem Header="About" AutomationProperties.Name="About SnapClip">
+                <StackPanel Margin="0,12,0,0">
+                    <TextBlock Text="SnapClip" FontSize="20" FontWeight="Bold"
+                               Foreground="{DynamicResource PrimaryText}"/>
+                    <TextBlock Text="Smart Clipboard Manager for Windows"
+                               Foreground="{DynamicResource SecondaryText}" Margin="0,4,0,0"/>
+                    <TextBlock Foreground="{DynamicResource SecondaryText}" Margin="0,12,0,0">
+                        <Run Text="Version: "/><Run Text="{Binding Version, Mode=OneWay}"/>
+                    </TextBlock>
+
+                    <CheckBox Content="Developer Mode" IsChecked="{Binding DeveloperMode}"
+                              Foreground="{DynamicResource SecondaryText}" Margin="0,20,0,0"
+                              AutomationProperties.Name="Enable developer mode for feature flags"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <!-- Save Button -->
+        <Button Grid.Row="2" Content="Save" Command="{Binding SaveSettingsCommand}"
+                Padding="24,8" HorizontalAlignment="Right" Margin="0,16,0,0"
+                Background="{DynamicResource AccentBrush}" Foreground="White"
+                BorderThickness="0" Cursor="Hand" FontWeight="SemiBold"
+                AutomationProperties.Name="Save settings"/>
+    </Grid>
+</Window>
