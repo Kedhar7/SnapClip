@@ -4,8 +4,6 @@
 
 > SnapClip runs in the system tray, monitors your clipboard in real-time, and lets you search, pin, organize, and re-paste clips with keyboard shortcuts.
 
-![SnapClip Screenshot Placeholder](docs/screenshot.png)
-
 ---
 
 ## Features
