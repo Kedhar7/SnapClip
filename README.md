@@ -8,7 +8,7 @@
 
 ## Features
 
-- [x] **Real-time clipboard monitoring** — Text, images, files
+- [x] **Real-time clipboard monitoring** — Text, images, files, and rich text
 - [x] **Instant search** — Full-text search with relevance ranking (<50ms for 1000+ clips)
 - [x] **Global hotkeys** — `Ctrl+Shift+V` to toggle, customizable shortcuts
 - [x] **Pin & favorite clips** — Keep important clips always accessible
